@@ -65,7 +65,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
 
-    for step in range(11):
+    for step in range(10001):
         sess.run(optimizer, feed_dict={X: X_train, Y: y_train})
         if step % 200 == 0:
             loss, acc = sess.run([cost, accuracy], feed_dict={X: X_train, Y: y_train})
@@ -79,11 +79,23 @@ with tf.Session() as sess:
     for p, y in zip(pred, y_test.flatten()):
         print("[{}] Prediction: {} Real Y: {}".format(p == int(y), p, int(y)))
 
-app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return 'hello!'
+#print(optimizer)
+    print(X)
+#print(x_test)
+#pred,ac = sess.run(prediction,feed_dict={X: X_test})
+    print(pred)
+    a = sess.run(hypothesis,feed_dict={X:[[0,5,5,25]]}) #값을 여기다가 넣고
+    print("그래서 [0,5,5,25]의 답은")
+    print(sess.run(tf.argmax(a,1))) #여기서 등급나오고
+    print("등급")
 
-if __name__ == '__main__':
-    app.run()
+
+#app = Flask(__name__)
+
+#@app.route("/")
+#def hello():
+#    return 'hello!'
+
+#if __name__ == '__main__':
+#    app.run()
